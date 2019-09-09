@@ -1,0 +1,45 @@
+http:// {
+  	redir https://{host}{uri}
+}
+
+https:// {
+
+	tls {
+		ask https://ohdear.app/caddy/allowed-domain
+	}
+
+	# Proxy to the main oh dear server, this enters the catch-all vhost
+	proxy / http://ohdear.app {
+	#proxy / http://94.176.99.159:80 {
+		# We use Laravel's subdomain routing to match
+		# this domain to the right status page
+		header_upstream Host {host}.ohdear.app
+
+		# Prevent a rewrite by Apache
+		header_upstream StatusPageHost {host}
+
+		# Add headers any proxy would expect
+		header_upstream X-Real-IP {remote}
+		header_upstream X-Forwarded-For {remote}
+		header_upstream X-Forwarded-Port {server_port}
+		header_upstream X-Forwarded-Proto {scheme}
+
+		# We should never take more than 5s to load
+		timeout 5s
+	}
+
+	# Logging
+	log /var/log/caddy/access.log {
+		rotate_size 100 # Rotate a log when it reaches 100 MB
+		rotate_age  14  # Keep rotated log files for 14 days
+		rotate_keep 10  # Keep at most 10 rotated log files
+		rotate_compress # Compress rotated log files in gzip format
+	}
+
+	errors /var/log/caddy/error.log {
+		rotate_size 100
+		rotate_age 7
+		rotate_keep 20
+		rotate_compress
+	}
+}
