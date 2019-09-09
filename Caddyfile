@@ -10,7 +10,6 @@ https:// {
 
 	# Proxy to the main oh dear server, this enters the catch-all vhost
 	proxy / http://ohdear.app {
-	#proxy / http://94.176.99.159:80 {
 		# We use Laravel's subdomain routing to match
 		# this domain to the right status page
 		header_upstream Host {host}.ohdear.app
