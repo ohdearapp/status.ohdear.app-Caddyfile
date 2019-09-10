@@ -14,9 +14,6 @@ https:// {
 		# this domain to the right status page
 		header_upstream Host {host}.ohdear.app
 
-		# Prevent a rewrite by Apache
-		header_upstream StatusPageHost {host}
-
 		# Add headers any proxy would expect
 		header_upstream X-Real-IP {remote}
 		header_upstream X-Forwarded-For {remote}
