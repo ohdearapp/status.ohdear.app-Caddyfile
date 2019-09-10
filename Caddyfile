@@ -28,7 +28,7 @@ https:// {
 	}
 
 	# Logging
-	log /var/log/caddy/access.log {
+	log / /var/log/caddy/access.log "{host} {remote} {when} {method} {uri} {proto} {status} {size} {>User-Agent} {latency}" {
 		rotate_size 100 # Rotate a log when it reaches 100 MB
 		rotate_age  14  # Keep rotated log files for 14 days
 		rotate_keep 10  # Keep at most 10 rotated log files
