@@ -12,7 +12,7 @@ https:// {
 	proxy / http://ohdear.app {
 		# We use Laravel's subdomain routing to match
 		# this domain to the right status page
-		header_upstream Host {host}.ohdear.app
+		header_upstream Host {host}.status.ohdearapp.com
 
 		# Confirm the request came from our Caddy proxy
 		header_upstream StatusPageHost {host}
